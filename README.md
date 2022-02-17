@@ -1,6 +1,8 @@
 					# S.O.L.I.D PRINCIPLES #
 
-Dans cet article, nous discuterons des **principes solides**, les principes SOLID sont l'ensemble des cinq principes utilisés pour concevoir un logiciel. En fait, le mot **SOLIDE** est l'acronyme de l'ensemble de cinq principes qui contient la première lettre de chaque principe.     
+Dans cet article, nous discuterons des **principes solides**, les principes SOLID sont l'ensemble des cinq principes utilisés pour concevoir un logiciel. En fait, le mot **SOLIDE** est l'acronyme de l'ensemble de cinq principes qui contient la première lettre de chaque principe.   
+Les principes de conception aident les équipes à prendre des décisions, et avoir un produit beau.   
+En respectant les principes SOLID, on évite les odeurs de code, avoir un code propre et maintenable et facile à tester.
 
 ![Alt text](https://github.com/zyedtu/solidprinciples/blob/master/SOLID_Principles.jpg?raw=true "Title")
 
