@@ -1,12 +1,16 @@
 					# S.O.L.I.D PRINCIPLES #
-					
-# Le Principe De Responsabilité Unique - Single Responsibility Principle (SRP):   
-Ce principe dit qu'il ne devrait jamais y avoir plus d'une raison pour qu'une classe change. Une classe doit être axée sur **une seule fonctionnalité**, répondre à une préoccupation spécifique. Cela signifie que chaque classe, ou structure similaire, dans votre code ne doit avoir qu'un seul travail à faire. Tout dans la classe doit être lié à cet objectif unique, c'est-à-dire être cohérent. Cela ne signifie pas que vos classes ne doivent contenir qu'une seule méthode ou propriété.     
 
-Vous pouvez éviter ces problèmes en posant une question simple avant d'apporter des modifications, Quelle est la responsabilité de votre classe/composant/microservice ?   
-Si votre réponse inclut le mot "et", vous viiler très probablement le principe de responsabilité unique.    
-### Exemple qui viole le principe de Responsabilité Unique:   
-Prenons cette classe employé:  
+Dans cet article, nous discuterons des **principes solides**, les principes SOLID sont l'ensemble des cinq principes utilisÃ©s pour concevoir un logiciel. En fait, le mot **SOLIDE** est l'acronyme de l'ensemble de cinq principes qui contient la premiÃ¨re lettre de chaque principe.     
+
+![Alt text](https://github.com/zyedtu/solidprinciples/blob/master/SOLID_Principles.jpg?raw=true "Title")
+
+# Le Principe De ResponsabilitÃ© Unique - Single Responsibility Principle (SRP):   
+Ce principe dit qu'il ne devrait jamais y avoir plus d'une raison pour qu'une classe change. Une classe doit Ãªtre axÃ©e sur **une seule fonctionnalitÃ©**, rÃ©pondre Ã  une prÃ©occupation spÃ©cifique. Cela signifie que chaque classe, ou structure similaire, dans votre code ne doit avoir qu'un seul travail Ã  faire. Tout dans la classe doit Ãªtre liÃ© Ã  cet objectif unique, c'est-Ã -dire Ãªtre cohÃ©rent. Cela ne signifie pas que vos classes ne doivent contenir qu'une seule mÃ©thode ou propriÃ©tÃ©.     
+
+Vous pouvez Ã©viter ces problÃ¨mes en posant une question simple avant d'apporter des modifications, Quelle est la responsabilitÃ© de votre classe/composant/microservice ?   
+Si votre rÃ©ponse inclut le mot "et", vous viiler trÃ¨s probablement le principe de responsabilitÃ© unique.    
+### Exemple qui viole le principe de ResponsabilitÃ© Unique:   
+Prenons cette classe employÃ©:  
 
 		public class Employee {
 		
@@ -23,13 +27,13 @@ Prenons cette classe employé:
 		    	// fetch report employee
 		    }
 		}
-Combien de responsabilités dans cette classe ?     
-La bonne réponse est **trois**.   
-Ici, nous avons une logique de **calcul**, une logique de **base de données** et une logique de **rapport**. Tout mélangé dans une même classe.      
-Si vous avez plusieurs responsabilités combinées en une seule classe, il peut être difficile de changer une partie sans en casser d'autres.     
-Le mélange des responsabilités rend également la classe plus difficile à comprendre et plus difficile à tester.     
+Combien de responsabilitÃ©s dans cette classe ?     
+La bonne rÃ©ponse est **trois**.   
+Ici, nous avons une logique de **calcul**, une logique de **base de donnÃ©es** et une logique de **rapport**. Tout mÃ©langÃ© dans une mÃªme classe.      
+Si vous avez plusieurs responsabilitÃ©s combinÃ©es en une seule classe, il peut Ãªtre difficile de changer une partie sans en casser d'autres.     
+Le mÃ©lange des responsabilitÃ©s rend Ã©galement la classe plus difficile Ã  comprendre et plus difficile Ã  tester.     
 ### Solution:   
-Le moyen le plus simple de résoudre ce problème consiste à diviser la classe en trois classes différentes, chacune n'ayant qu'une seule responsabilité : l'accès à la base de données, le calcul du paiement et la création de rapports, tous séparés.   
+Le moyen le plus simple de rÃ©soudre ce problÃ¨me consiste Ã  diviser la classe en trois classes diffÃ©rentes, chacune n'ayant qu'une seule responsabilitÃ© : l'accÃ¨s Ã  la base de donnÃ©es, le calcul du paiement et la crÃ©ation de rapports, tous sÃ©parÃ©s.   
 
 		public class EmployeePayment {
 			public Double calculatePay() {
@@ -49,32 +53,32 @@ Le moyen le plus simple de résoudre ce problème consiste à diviser la classe en 
 				// logic to generate employee report
 			}
 		}
-### Un exemple de vie réelle:    
-Vous pouvez trouver de nombreux exemples de Responsabilité Unique, en l'occurrence **L'  interface EntityManager** de JPA, fournit un ensemble de méthodes pour enregistrer, mettre à jour, supprimer et lire des entités d'une base de données relationnelle. Sa responsabilité est de gérer les entités qui sont associées au contexte de persistance actuel.          
-### avantage du principe de responsabilité unique:  
-# Le Principe Ouvert Fermé - The Open Closed Principle (OCP):   
-Le principe dit: Les composants logiciels doivent être ouverts à l'extension, mais fermés à la modification ». En termes simples, les composants logiciels tels que les classes, les modules et les fonctions doivent être ouverts aux extensions mais fermés aux modifications.       
-Bien sûr, la seule exception à la règle concerne la correction de bogues dans le code existant. Donc, nous ne devrions modifier notre classe qu'au moment de la correction des bogues.      
-Il existe plusieurs manière pour étendre une classe:   
-* Héritage de la classe.    
-* Redéfinir les comportements requis de la classe.   
+### Un exemple de vie rÃ©elle:    
+Vous pouvez trouver de nombreux exemples de ResponsabilitÃ© Unique, en l'occurrence **L'  interface EntityManager** de JPA, fournit un ensemble de mÃ©thodes pour enregistrer, mettre Ã  jour, supprimer et lire des entitÃ©s d'une base de donnÃ©es relationnelle. Sa responsabilitÃ© est de gÃ©rer les entitÃ©s qui sont associÃ©es au contexte de persistance actuel.          
+### avantage du principe de responsabilitÃ© unique:  
+# Le Principe Ouvert FermÃ© - The Open Closed Principle (OCP):   
+Le principe dit: Les composants logiciels doivent Ãªtre ouverts Ã  l'extension, mais fermÃ©s Ã  la modification Â». En termes simples, les composants logiciels tels que les classes, les modules et les fonctions doivent Ãªtre ouverts aux extensions mais fermÃ©s aux modifications.       
+Bien sÃ»r, la seule exception Ã  la rÃ¨gle concerne la correction de bogues dans le code existant. Donc, nous ne devrions modifier notre classe qu'au moment de la correction des bogues.      
+Il existe plusieurs maniÃ¨re pour Ã©tendre une classe:   
+* HÃ©ritage de la classe.    
+* RedÃ©finir les comportements requis de la classe.   
 * Extension de certains comportements de la classe.    
 
-### Exemple qui viole le Principe Ouvert Fermé OCP:    
-Supposons que nous devions écrire un programme qui calcule l'aire de différentes formes. Nous commençons par créer une classe pour notre première forme, disons Rectangle qui a 2 attributs longueur et largeur.    
-Ensuite, nous créons une classe pour calculer la surface de ce Rectangle qui a une méthode calculateRectangleArea() qui prend le Rectangle comme paramètre d'entrée:   
+### Exemple qui viole le Principe Ouvert FermÃ© OCP:    
+Supposons que nous devions Ã©crire un programme qui calcule l'aire de diffÃ©rentes formes. Nous commenÃ§ons par crÃ©er une classe pour notre premiÃ¨re forme, disons Rectangle qui a 2 attributs longueur et largeur.    
+Ensuite, nous crÃ©ons une classe pour calculer la surface de ce Rectangle qui a une mÃ©thode calculateRectangleArea() qui prend le Rectangle comme paramÃ¨tre d'entrÃ©e:   
 
 		public class AreaCalculator {
 			public Double calculateRectangleArea(Rectangle rectangle) {
 				return rectangle.length * rectangle.width;
 			}
 		}
-Jusqu'ici tout va bien. Plutard, nous devions écrire un programme pour notre deuxième forme qui est un cercle. Ainsi, nous créons rapidement une nouvelle classe Circle avec un rayon d'attribut unique.   
+Jusqu'ici tout va bien. Plutard, nous devions Ã©crire un programme pour notre deuxiÃ¨me forme qui est un cercle. Ainsi, nous crÃ©ons rapidement une nouvelle classe Circle avec un rayon d'attribut unique.   
 
 		public class Circle {
 			public Double radius;
 		}
-Ensuite, nous modifions la classe AreaCalculator pour ajouter des calculs de cercle via une nouvelle méthode calculateCircleArea().    
+Ensuite, nous modifions la classe AreaCalculator pour ajouter des calculs de cercle via une nouvelle mÃ©thode calculateCircleArea().    
 
 	public class AreaCalculator {
 		public Double calculateRectangleArea(Rectangle rectangle) {
@@ -85,11 +89,11 @@ Ensuite, nous modifions la classe AreaCalculator pour ajouter des calculs de cer
 			return 3.14 * circle.radius * circle.radius;
 		}
 	}
-Cependant, veuillez noter qu'il existe **des défauts** dans la conception de notre solution ci-dessus.    
-Au fur et à mesure que les types de formes augmentent, cela devient plus compliqué car la classe *AreaCalculator* continue de changer, Ainsi, cette conception **n'est pas fermée** pour *modification*.     
+Cependant, veuillez noter qu'il existe **des dÃ©fauts** dans la conception de notre solution ci-dessus.    
+Au fur et Ã  mesure que les types de formes augmentent, cela devient plus compliquÃ© car la classe *AreaCalculator* continue de changer, Ainsi, cette conception **n'est pas fermÃ©e** pour *modification*.     
 ### La solution:   
-Voyons maintenant une conception plus élégante qui résout les défauts de la conception ci-dessus en adhérant au principe ouvert/fermé.     
-Tout d'abord, nous allons rendre le design extensible, pour cela on va définir un type *Shape* et fair en sorte que *Rectangle* et *Circle* implémente cette interface.    
+Voyons maintenant une conception plus Ã©lÃ©gante qui rÃ©sout les dÃ©fauts de la conception ci-dessus en adhÃ©rant au principe ouvert/fermÃ©.     
+Tout d'abord, nous allons rendre le design extensible, pour cela on va dÃ©finir un type *Shape* et fair en sorte que *Rectangle* et *Circle* implÃ©mente cette interface.    
 
 		public class Rectangle implements Shape{
 			public Double length;
@@ -110,34 +114,34 @@ la classe Circle:
 				return 3.14 * radius * radius;
 			}
 		}
-Comme mentionné ci-dessus, il existe une interface de base Shape. Toutes les formes implémentent désormais l'interface de base Shape.      
-Nous avons apporté un certain **degré d'extensibilité** car les formes sont désormais une instance des interfaces Shape. Cela nous permet d'utiliser Shape au lieu de classes individuelles.    
-Le dernier point est le *consommateur* de ces formes. Le consommateur sera la classe AreaCalculator qui ressemblera maintenant à ceci:    
+Comme mentionnÃ© ci-dessus, il existe une interface de base Shape. Toutes les formes implÃ©mentent dÃ©sormais l'interface de base Shape.      
+Nous avons apportÃ© un certain **degrÃ© d'extensibilitÃ©** car les formes sont dÃ©sormais une instance des interfaces Shape. Cela nous permet d'utiliser Shape au lieu de classes individuelles.    
+Le dernier point est le *consommateur* de ces formes. Le consommateur sera la classe AreaCalculator qui ressemblera maintenant Ã  ceci:    
 
 		public class AreaCalculator {
 			public Double calculateShapeArea(Shape shape) {
 				return shape.calculateArea();
 			}
 		}
-Cette classe AreaCalculator supprime maintenant complètement nos défauts de conception notés ci-dessus et fournit une solution propre qui adhère au principe ouvert-fermé.    
-### Les avantages du principe ouvert fermé:    
-* Extensibilité plus facile.       
-* Plus facile à entretenir.  
-* La flexibilité.  
+Cette classe AreaCalculator supprime maintenant complÃ¨tement nos dÃ©fauts de conception notÃ©s ci-dessus et fournit une solution propre qui adhÃ¨re au principe ouvert-fermÃ©.    
+### Les avantages du principe ouvert fermÃ©:    
+* ExtensibilitÃ© plus facile.       
+* Plus facile Ã  entretenir.  
+* La flexibilitÃ©.  
 
 # Le Principe De Substitution De Liskov - Liskov Substitution Principle (LSP):    
-le principe de substitution de Liskov en terme simple, si la classe  A  est un sous-type de la classe  B , alors nous devrions pouvoir remplacer les objets de B  par des objets de A (c'est-à-dire que les objets de type A peuvent remplacer les objets de type B)  sans changer le comportement (correction, fonctionnalité, etc.) de notre programme.   
-LSP s'applique aux hiérarchies d'héritage, toutes les sous-classes doivent donc fonctionner de la même manière que leurs classes de base **Les types dérivés doivent être complètement substituables à leurs types de base**. 		   
+le principe de substitution de Liskov en terme simple, si la classe  A  est un sous-type de la classe  B , alors nous devrions pouvoir remplacer les objets de B  par des objets de A (c'est-Ã -dire que les objets de type A peuvent remplacer les objets de type B)  sans changer le comportement (correction, fonctionnalitÃ©, etc.) de notre programme.   
+LSP s'applique aux hiÃ©rarchies d'hÃ©ritage, toutes les sous-classes doivent donc fonctionner de la mÃªme maniÃ¨re que leurs classes de base **Les types dÃ©rivÃ©s doivent Ãªtre complÃ¨tement substituables Ã  leurs types de base**. 		   
 ### Exemple qui viole le principe De Substitution De Liskov LSP:    
-On crée une classe Abstraite *Account*:  
+On crÃ©e une classe Abstraite *Account*:  
 
 	public abstract class Account {
 		protected abstract void deposit(BigDecimal amount);
 		protected abstract void withdraw(BigDecimal amount);
 	}
-Cette classe dispose de deux méthode: 
-* deposit(): pour le **dépôt** dans une compte.
-* withdraw(): pour **retrait** de compte ( retirer un solde du compte du montant spécifié à condition que le montant > 0)       
+Cette classe dispose de deux mÃ©thode: 
+* deposit(): pour le **dÃ©pÃ´t** dans une compte.
+* withdraw(): pour **retrait** de compte ( retirer un solde du compte du montant spÃ©cifiÃ© Ã  condition que le montant > 0)       
 
 Admettant qu'on a un service *BankingAppWithdrawalService* qui fait appel a la classe *Account*:     
 
@@ -153,8 +157,8 @@ Admettant qu'on a un service *BankingAppWithdrawalService* qui fait appel a la c
 	        account.withdraw(amount);
 	    }
 	} 
-Désormais, la banque souhaite proposer à ses clients un compte de dépôt à terme à taux d'intérêt élevé avec condition que le client ne peut pas **retirer** de ce compte.   
-Dans notre concepte orientée objet, ce nouveau compte de dépôt à terme *FixedTermDepositAccount* hérite du compte *Account*.      
+DÃ©sormais, la banque souhaite proposer Ã  ses clients un compte de dÃ©pÃ´t Ã  terme Ã  taux d'intÃ©rÃªt Ã©levÃ© avec condition que le client ne peut pas **retirer** de ce compte.   
+Dans notre concepte orientÃ©e objet, ce nouveau compte de dÃ©pÃ´t Ã  terme *FixedTermDepositAccount* hÃ©rite du compte *Account*.      
 
 	public class FixedTermDepositAccount extends Account {
 	
@@ -187,22 +191,22 @@ Sans surprise, l'application bancaire plante avec l'erreur :
 
 	java.lang.UnsupportedOperationException: Withdrawals are not supported by FixedTermDepositAccount!!
 
-Qu'est ce qui ne s'est pas bien passé ?         
-En fait, *BankingAppWithdrawalService* est une service d'un client de la classe *Account*.  Il s'attend à ce que Account et ses sous-types garantissent le comportement que la classe Account a spécifié pour sa méthode de retrait. En revanche la sous-classe *FixedTermDepositAccount* ne prend pas en charge la méthode *de retrait (withdraw)*.     
-Par conséquent, nous ne pouvons pas remplacer de manière fiable FixedTermDepositAccount par Account.     
-En d'autres termes, le FixedTermDepositAccount a **violé** le principe de substitution de Liskov.    
+Qu'est ce qui ne s'est pas bien passÃ© ?         
+En fait, *BankingAppWithdrawalService* est une service d'un client de la classe *Account*.  Il s'attend Ã  ce que Account et ses sous-types garantissent le comportement que la classe Account a spÃ©cifiÃ© pour sa mÃ©thode de retrait. En revanche la sous-classe *FixedTermDepositAccount* ne prend pas en charge la mÃ©thode *de retrait (withdraw)*.     
+Par consÃ©quent, nous ne pouvons pas remplacer de maniÃ¨re fiable FixedTermDepositAccount par Account.     
+En d'autres termes, le FixedTermDepositAccount a **violÃ©** le principe de substitution de Liskov.    
 ### La solution:     
-D'après *Robert C. Martin* Les sous-types doivent être substituables à leurs types de base.   
-Un sous-type ne devient pas automatiquement substituable à son sur-type. Pour être substituable, le sous-type doit **se comporter comme son supertype**.     
-Donc pour trouver la solution, il doit commençer par comprendre la cause première.     
-Dans notre exemple, FixedTermDepositAccount **n'était pas un sous-type comportemental** de Account.       
-La conception du compte suppose à tort que tous les types de compte autorisent les retraits. Par conséquent, tous les sous-types de compte,  y compris FixedTermDepositAccount qui ne prend pas en charge les retraits, ont hérité de la méthode de retrait .       
-Pour cela on fait un refactor de la classe Account, avec une seule méthode *deposit*   
+D'aprÃ¨s *Robert C. Martin* Les sous-types doivent Ãªtre substituables Ã  leurs types de base.   
+Un sous-type ne devient pas automatiquement substituable Ã  son sur-type. Pour Ãªtre substituable, le sous-type doit **se comporter comme son supertype**.     
+Donc pour trouver la solution, il doit commenÃ§er par comprendre la cause premiÃ¨re.     
+Dans notre exemple, FixedTermDepositAccount **n'Ã©tait pas un sous-type comportemental** de Account.       
+La conception du compte suppose Ã  tort que tous les types de compte autorisent les retraits. Par consÃ©quent, tous les sous-types de compte,  y compris FixedTermDepositAccount qui ne prend pas en charge les retraits, ont hÃ©ritÃ© de la mÃ©thode de retrait .       
+Pour cela on fait un refactor de la classe Account, avec une seule mÃ©thode *deposit*   
 
 	public abstract class Account {
 		protected abstract void deposit(BigDecimal amount);
 	}
-On crée une classe qui implement la méthode de retrait et hérite de la classe Account:   
+On crÃ©e une classe qui implement la mÃ©thode de retrait et hÃ©rite de la classe Account:   
 
 	public class WithdrawableAccount extends Account {
 	
@@ -232,7 +236,7 @@ Ensuite on refactor notre service avec retrait *BankingAppWithdrawalService* com
 	    	withdrawableAccount.withdraw(amount);
 	    }
 	}   
-Exécutant maintenant notre classe main avec l'ajout de notre nouvelle classe *WithdrawableAccount*:   
+ExÃ©cutant maintenant notre classe main avec l'ajout de notre nouvelle classe *WithdrawableAccount*:   
 
 	public class IspMain {
 	
@@ -247,15 +251,15 @@ Exécutant maintenant notre classe main avec l'ajout de notre nouvelle classe *Wi
 	}
 tout est **ok**.     
 ### Les avantages du principe de substitution de Liskov (LSP):  
-* Réutilisabilité du code
-* Maintenance simplifiée
-* Couplage réduit
+* RÃ©utilisabilitÃ© du code
+* Maintenance simplifiÃ©e
+* Couplage rÃ©duit
 
-# Le Principe De Ségrégation D'interface - Interface Segregation Principle (ISP):   
-Le principe de ségrégation des interfaces stipule que *les clients ne doivent pas être contraints de dépendre d'interfaces qu'ils n'utilisent pas*.       
-En bref, il serait mauvais pour vous de forcer le client à dépendre d'une certaine chose, dont il n'a pas besoin.     
-### Exemple qui viole le principe De Ségrégation D'interface ISP:   
-Supposons qu'il existe une interface de restaurant qui contient des méthodes pour accepter les commandes des clients en ligne, des clients par téléphone et des clients sans rendez-vous.  Il contient également des méthodes de gestion des paiements en ligne (pour les clients en ligne) et des paiements en personne. Les paiements en personne concernent les clients sans rendez-vous ainsi que les clients par téléphone. De plus, les clients par téléphone paient en personne au moment de la livraison de la commande.      
+# Le Principe De SÃ©grÃ©gation D'interface - Interface Segregation Principle (ISP):   
+Le principe de sÃ©grÃ©gation des interfaces stipule que *les clients ne doivent pas Ãªtre contraints de dÃ©pendre d'interfaces qu'ils n'utilisent pas*.       
+En bref, il serait mauvais pour vous de forcer le client Ã  dÃ©pendre d'une certaine chose, dont il n'a pas besoin.     
+### Exemple qui viole le principe De SÃ©grÃ©gation D'interface ISP:   
+Supposons qu'il existe une interface de restaurant qui contient des mÃ©thodes pour accepter les commandes des clients en ligne, des clients par tÃ©lÃ©phone et des clients sans rendez-vous.  Il contient Ã©galement des mÃ©thodes de gestion des paiements en ligne (pour les clients en ligne) et des paiements en personne. Les paiements en personne concernent les clients sans rendez-vous ainsi que les clients par tÃ©lÃ©phone. De plus, les clients par tÃ©lÃ©phone paient en personne au moment de la livraison de la commande.      
 
 		public interface RestaurantInterface {
 			public void acceptOnlineOrder();
@@ -264,8 +268,8 @@ Supposons qu'il existe une interface de restaurant qui contient des méthodes pou
 			public void payOnline();
 			public void payInPerson();
 		}  
- Dans cette interface, nous avons 5 mérhodes Ils servent à accepter une commande en ligne, à prendre une commande par téléphone, à accepter les commandes d'un client sans rendez-vous afin de passer la commande. De même, accepter le paiement en ligne et accepter le paiement en personne afin d'effectuer les paiements.     
-Implémentant maintenant une classe pour les client en ligne:    
+ Dans cette interface, nous avons 5 mÃ©rhodes Ils servent Ã  accepter une commande en ligne, Ã  prendre une commande par tÃ©lÃ©phone, Ã  accepter les commandes d'un client sans rendez-vous afin de passer la commande. De mÃªme, accepter le paiement en ligne et accepter le paiement en personne afin d'effectuer les paiements.     
+ImplÃ©mentant maintenant une classe pour les client en ligne:    
 
 		public class OnlineCustomerImpl implements RestaurantInterface {
 		
@@ -294,11 +298,11 @@ Implémentant maintenant une classe pour les client en ligne:
 				throw new UnsupportedOperationException();
 			}
 		}
-Cette classe est  destiné aux clients en ligne, nous devrons lever UnsupportedOperationException pour les méthodes qui ne s'appliquent pas aux clients en ligne. Ceci est également appelé **pollution d'interface**. Ici, nous pouvons observer une **violation** claire du principe de ségrégation d'interface(ISP).     
+Cette classe est  destinÃ© aux clients en ligne, nous devrons lever UnsupportedOperationException pour les mÃ©thodes qui ne s'appliquent pas aux clients en ligne. Ceci est Ã©galement appelÃ© **pollution d'interface**. Ici, nous pouvons observer une **violation** claire du principe de sÃ©grÃ©gation d'interface(ISP).     
 ### La solution:     
-Comment surmonter ce problème ? nous appliquerons le principe de ségrégation d'interface **ISP** pour refactoriser la conception ci-dessus.   
+Comment surmonter ce problÃ¨me ? nous appliquerons le principe de sÃ©grÃ©gation d'interface **ISP** pour refactoriser la conception ci-dessus.   
 
-* Séparer les fonctionnalitées de payement et le passage d'une commande en deux interfaces différents:      
+* SÃ©parer les fonctionnalitÃ©es de payement et le passage d'une commande en deux interfaces diffÃ©rents:      
 
 		public interface OrderInterface {
 			public void placeOrder();
@@ -308,7 +312,7 @@ Comment surmonter ce problème ? nous appliquerons le principe de ségrégation d'i
 			public void payForOrder();
 		} 
 
-* Chaque client va maintenant implémenter les deux interfaces comme ci-dessous:    
+* Chaque client va maintenant implÃ©menter les deux interfaces comme ci-dessous:    
 
 	public class OnlineCustomerImpl implements OrderInterface, PaymentInterface {
 	
@@ -336,19 +340,19 @@ Comment surmonter ce problème ? nous appliquerons le principe de ségrégation d'i
 		}
 	}
 ### Quelle est la similitude entre ISP et SRP:      
-Le principe de ségrégation d'interface et le principe de responsabilité unique ont à peu près le même objectif : garantir des composants logiciels petits, ciblés et hautement cohérents. La différence est que le principe de responsabilité unique *SRP* concerne les **classes**, tandis que le principe de séparation des interfaces *ISP* concerne les **interfaces**.    
-### les avantages du principe de ségrégation d'interface:      
-* Meilleure lisibilité du code.    
-* Plus facile à mettre en œuvre.    
-* Plus facile à maintenir.    
+Le principe de sÃ©grÃ©gation d'interface et le principe de responsabilitÃ© unique ont Ã  peu prÃ¨s le mÃªme objectif : garantir des composants logiciels petits, ciblÃ©s et hautement cohÃ©rents. La diffÃ©rence est que le principe de responsabilitÃ© unique *SRP* concerne les **classes**, tandis que le principe de sÃ©paration des interfaces *ISP* concerne les **interfaces**.    
+### les avantages du principe de sÃ©grÃ©gation d'interface:      
+* Meilleure lisibilitÃ© du code.    
+* Plus facile Ã  mettre en Âœuvre.    
+* Plus facile Ã  maintenir.    
 * Meilleure organisation du code.   
 * Pas besoin de lever des exceptions inutilement.     
               
-# Principe d'inversion de dépendance - Dependency Inversion Principle (DIP):
-Les modules de haut niveau ne doivent pas dépendre des modules de bas niveau. Les deux devraient dépendre d'abstractions.  
+# Principe d'inversion de dÃ©pendance - Dependency Inversion Principle (DIP):
+Les modules de haut niveau ne doivent pas dÃ©pendre des modules de bas niveau. Les deux devraient dÃ©pendre d'abstractions.  
 
-### Exemple qui viole le principe inversion de dépendance:
-On crée une classe de niveau inférieur **(lower-level)** qui permet aux utilisateurs de voir des critiques et de lire un échantillon de chaque livre.
+### Exemple qui viole le principe inversion de dÃ©pendance:
+On crÃ©e une classe de niveau infÃ©rieur **(lower-level)** qui permet aux utilisateurs de voir des critiques et de lire un Ã©chantillon de chaque livre.
 
 		public class Book {
 		
@@ -357,25 +361,25 @@ On crée une classe de niveau inférieur **(lower-level)** qui permet aux utilisat
 			}
 			
 			void readSample() {
-				System.out.println("Read Sample - Lire un échantillon");
+				System.out.println("Read Sample - Lire un Ã©chantillon");
 			}
 		}
-Maintenant on crée une classe de niveau supérieur **(higher-level)**, qui permet d'ajouter un livre à leur étagère et de personnaliser l'étagère:   
+Maintenant on crÃ©e une classe de niveau supÃ©rieur **(higher-level)**, qui permet d'ajouter un livre Ã  leur Ã©tagÃ¨re et de personnaliser l'Ã©tagÃ¨re:   
 
 		public class Shelf {
 		
 			Book book;
 			
 			void addBook(Book book) {
-				System.out.println("Add Book - Ajouter un livre à leur étagère");
+				System.out.println("Add Book - Ajouter un livre Ã  leur Ã©tagÃ¨re");
 			}
 			
 			void customizeShelf() {
-				System.out.println("CustomizeShelf - personnaliser l'étagère");
+				System.out.println("CustomizeShelf - personnaliser l'Ã©tagÃ¨re");
 		   }
 		}
 
-Tout semble correct, mais comme la classe **Shelf** de *haut niveau* **dépend du Book** de *bas niveau*, le code ci-dessus viole le principe d'inversion des dépendances. Cela devient clair lorsque le magasin nous demande de permettre aux clients d'ajouter également des DVD à leurs rayons. Afin de répondre à la demande, nous créons une nouvelle classe de DVD.     
+Tout semble correct, mais comme la classe **Shelf** de *haut niveau* **dÃ©pend du Book** de *bas niveau*, le code ci-dessus viole le principe d'inversion des dÃ©pendances. Cela devient clair lorsque le magasin nous demande de permettre aux clients d'ajouter Ã©galement des DVD Ã  leurs rayons. Afin de rÃ©pondre Ã  la demande, nous crÃ©ons une nouvelle classe de DVD.     
 
 		public class DVD {
 		
@@ -387,11 +391,11 @@ Tout semble correct, mais comme la classe **Shelf** de *haut niveau* **dépend du
 				System.out.println("Watch Sample - Critique DVD");
 		   }
 		}
-Ensuite, on doit modifier la classe Shelf afin qu'elle puisse accepter les DVD, Cependant, cela enfreindrait clairement le principe ouvert/fermé également.    
+Ensuite, on doit modifier la classe Shelf afin qu'elle puisse accepter les DVD, Cependant, cela enfreindrait clairement le principe ouvert/fermÃ© Ã©galement.    
 
 ### La solution:
-la solution est de créer une couche d'abstraction pour les classes de niveau inférieur (Book et DVD).     
-Nous le ferons en introduisant l'interface Product, les deux classes l'implémenteront:     
+la solution est de crÃ©er une couche d'abstraction pour les classes de niveau infÃ©rieur (Book et DVD).     
+Nous le ferons en introduisant l'interface Product, les deux classes l'implÃ©menteront:     
 
 		public interface Product {
 		
@@ -399,7 +403,7 @@ Nous le ferons en introduisant l'interface Product, les deux classes l'implément
 		
 			void getSample();
 		}
-la classe book implément Product:   
+la classe book implÃ©ment Product:   
 
 		public class Book implements Product{
 		
@@ -410,7 +414,7 @@ la classe book implément Product:
 			
 			@Override
 			public void getSample() {
-				System.out.println("Read Sample - Lire un échantillon");
+				System.out.println("Read Sample - Lire un Ã©chantillon");
 			}
 		}
 Ainsi que la classe DVD:  
@@ -427,21 +431,21 @@ Ainsi que la classe DVD:
 			System.out.println("Watch Sample - Critique DVD");
 	   }
 	}
-Maintenant, Shelf peut référencer l'interface Product au lieu de ses implémentations (Book et DVD). Le code refactorisé nous permet également d'introduire ultérieurement de nouveaux types de produits (par exemple, Magazine) que les clients peuvent également mettre sur leurs étagères.    
+Maintenant, Shelf peut rÃ©fÃ©rencer l'interface Product au lieu de ses implÃ©mentations (Book et DVD). Le code refactorisÃ© nous permet Ã©galement d'introduire ultÃ©rieurement de nouveaux types de produits (par exemple, Magazine) que les clients peuvent Ã©galement mettre sur leurs Ã©tagÃ¨res.    
 
 		public class Shelf {
 		
 			Product product;
 			
 			void addBook(Product product) {
-				System.out.println("Add product - Ajouter un produit à leur étagère");
+				System.out.println("Add product - Ajouter un produit Ã  leur Ã©tagÃ¨re");
 			}
 			
 			void customizeShelf() {
-				System.out.println("CustomizeShelf - personnaliser l'étagère");
+				System.out.println("CustomizeShelf - personnaliser l'Ã©tagÃ¨re");
 		   }
 		}
-### Les avantages du principe d'inversion de dépendance:   
-* Maintient votre code faiblement couplé.     
+### Les avantages du principe d'inversion de dÃ©pendance:   
+* Maintient votre code faiblement couplÃ©.     
 * Maintenance plus facile.     
-* Meilleure réutilisabilité du code.     
+* Meilleure rÃ©utilisabilitÃ© du code.     
