@@ -132,126 +132,97 @@ Cette classe AreaCalculator supprime maintenant complètement nos défauts de co
 * La flexibilité.  
 
 # Le Principe De Substitution De Liskov - Liskov Substitution Principle (LSP):    
-le principe de substitution de Liskov en terme simple, si la classe  A  est un sous-type de la classe  B , alors nous devrions pouvoir remplacer les objets de B  par des objets de A (c'est-à-dire que les objets de type A peuvent remplacer les objets de type B)  sans changer le comportement (correction, fonctionnalité, etc.) de notre programme.   
+le principe de substitution de Liskov en terme simple, si la classe  B  est un sous-type de la classe  A , alors nous devrions pouvoir remplacer les objets de A  par des objets de B (c'est-à-dire que les objets de type B peuvent remplacer les objets de type A)  sans changer le comportement (correction, fonctionnalité, etc.) de notre programme.   
 LSP s'applique aux hiérarchies d'héritage, toutes les sous-classes doivent donc fonctionner de la même manière que leurs classes de base **Les types dérivés doivent être complètement substituables à leurs types de base**. 		   
-### Exemple qui viole le principe De Substitution De Liskov LSP:    
-On crée une classe Abstraite *Account*:  
+### Exemple de violation du du principe de substitution de Liskov:
+Prenons le classe  Bird (oiseau):  
 
-	public abstract class Account {
-		protected abstract void deposit(BigDecimal amount);
-		protected abstract void withdraw(BigDecimal amount);
+	public class Bird {
+		public void display() {
+			System.out.println("I'm a Bird.");
+		}
+		
+		public void fly() {
+			System.out.println("I can fly.");
+		}
 	}
-Cette classe dispose de deux méthode: 
-* deposit(): pour le **dépôt** dans une compte.
-* withdraw(): pour **retrait** de compte ( retirer un solde du compte du montant spécifié à condition que le montant > 0)       
+Elle définit deux méthode eat() et fly(). 
+Ensuite on définit une deuxième classe Pigeon, qui hérite de la classe Bird.  
 
-Admettant qu'on a un service *BankingAppWithdrawalService* qui fait appel a la classe *Account*:     
+	public class Pigeon extends Bird {
+	
+		@Override
+		public void display() {
+			System.out.println("I'm a Pigeon.");
+		}
+	}
+Ensuite on définit une autre classe qui hérite de la classe Bird
 
-	public class BankingAppWithdrawalService {
+	public class Penguin extends Bird {
 	
-		private Account account;
+		@Override
+		public void display() {
+			System.out.println("I'm a Penguin.");
+		}
+	}
+![diagram](LSP-ko.png)
+
+Lorsqu'on compile ce code dans une classe main on aura ce résultat:  
+
+	public class BirdMain {
 	
-	    public BankingAppWithdrawalService(Account account) {
-	        this.account = account;
-	    }
+		public static void main(String[] args) {
+			var bird = new Penguin();
+			bird.display();
+			bird.fly(); // OOPS, Penguins cant fly.
+		}
+	}
 	
-	    public void withdraw(BigDecimal amount) {
-	        account.withdraw(amount);
-	    }
+Du point de vue du compilateur, il est acceptable d'utiliser l'instance de Penguin à la place de Bird, mais lorsque vous commencerez à utiliser l'instance de Penguin comme un oiseau, les choses commenceront à créer de la confusion **un penguin ne peux voler**, donc on viole le principe de Loskov substitution.  
+
+La violation de LSP aura un impact significatif sur la compréhension de votre code car elle utilise un mauvais concept d'héritage.  
+
+### Comment on peut résoudre ce Problème:  
+la première façon qui est considérée comme une mauvaise pratique est la suivante, on ajoutre ce code dans la classe Bird pour vérifier si le oiseau est un Penguin ou non:   
+
+	public static void letBirdsFly(List<Bird> birds) { 
+	    for(Bird bird: birds) { 
+	        if(!(bird instanceof Penguin)) { 
+	            bird.fly(); 
+	        } 
+	    } 
 	} 
-Désormais, la banque souhaite proposer à ses clients un compte de dépôt à terme à taux d'intérêt élevé avec condition que le client ne peut pas **retirer** de ce compte.   
-Dans notre concepte orientée objet, ce nouveau compte de dépôt à terme *FixedTermDepositAccount* hérite du compte *Account*.      
+Cette solution est considérée comme une mauvaise pratique et viole le principe ouvert-fermé.  
+Le code va devenir un gâchis. Notez également que l'une des définitions du principe de substitution de Liskov, développée par **Robert C. Martin , est la suivante**: *Les fonctions qui utilisent des pointeurs ou des références à des classes de base doivent pouvoir utiliser des objets de classes dérivées sans le savoir*.   
 
-	public class FixedTermDepositAccount extends Account {
-	
-		@Override
-		protected void deposit(BigDecimal amount) {
-			// Deposit into this account
-	
-		}
-	
-		@Override
-		protected void withdraw(BigDecimal amount) {
-			throw new UnsupportedOperationException("Withdrawals are not supported by "
-					+ "FixedTermDepositAccount!!");
-		}
-	}	
-Maintenant on va tester notre service avec la classe **IspMain**:   
+Le deuxième façon est de suivre le principe consiste **à séparer la logique de vol** dans une autre classe.
 
-	public class IspMain {
-	
-		public static void main(String[] args) {
-			Account myFixedTermDepositAccount = new FixedTermDepositAccount();
-			myFixedTermDepositAccount.deposit(new BigDecimal(1000.00));
-	
-			BankingAppWithdrawalService withdrawalService = new BankingAppWithdrawalService(myFixedTermDepositAccount);
-			withdrawalService.withdraw(new BigDecimal(100.00));
-	
-		}
+![diagram](LSP-ok.png)
+
+
+	public class Bird { 
+	    public void display() { 
+	        System.out.println("I'm a Bird."); 
+	    } 
 	}
-Sans surprise, l'application bancaire plante avec l'erreur :
-
-	java.lang.UnsupportedOperationException: Withdrawals are not supported by FixedTermDepositAccount!!
-
-Qu'est ce qui ne s'est pas bien passé ?         
-En fait, *BankingAppWithdrawalService* est une service d'un client de la classe *Account*.  Il s'attend à ce que Account et ses sous-types garantissent le comportement que la classe Account a spécifié pour sa méthode de retrait. En revanche la sous-classe *FixedTermDepositAccount* ne prend pas en charge la méthode *de retrait (withdraw)*.     
-Par conséquent, nous ne pouvons pas remplacer de manière fiable FixedTermDepositAccount par Account.     
-En d'autres termes, le FixedTermDepositAccount a **violé** le principe de substitution de Liskov.    
-### La solution:     
-D'après *Robert C. Martin* Les sous-types doivent être substituables à leurs types de base.   
-Un sous-type ne devient pas automatiquement substituable à son sur-type. Pour être substituable, le sous-type doit **se comporter comme son supertype**.     
-Donc pour trouver la solution, il doit commençer par comprendre la cause première.     
-Dans notre exemple, FixedTermDepositAccount **n'était pas un sous-type comportemental** de Account.       
-La conception du compte suppose à tort que tous les types de compte autorisent les retraits. Par conséquent, tous les sous-types de compte,  y compris FixedTermDepositAccount qui ne prend pas en charge les retraits, ont hérité de la méthode de retrait .       
-Pour cela on fait un refactor de la classe Account, avec une seule méthode *deposit*   
-
-	public abstract class Account {
-		protected abstract void deposit(BigDecimal amount);
-	}
-On crée une classe qui implement la méthode de retrait et hérite de la classe Account:   
-
-	public class WithdrawableAccount extends Account {
-	
-		@Override
-		protected void deposit(BigDecimal amount) {
-			this.amount = amount;
-		}
-	
-		protected void withdraw(BigDecimal amount) {
-			if(this.amount.compareTo(amount) >= 0 )
-				this.amount.subtract(amount);
-			else
-				throw new RuntimeException("Solde du compte est insuffusant!");
-		}
-	}
-Ensuite on refactor notre service avec retrait *BankingAppWithdrawalService* comme ci-dessous:    
-
-	public class BankingAppWithdrawalService {
-	
-		private WithdrawableAccount withdrawableAccount;
-	
-	    public BankingAppWithdrawalService(WithdrawableAccount withdrawableAccount) {
-	        this.withdrawableAccount = withdrawableAccount;
+	public class FlyingBird extends Bird { 
+	    public void fly() { 
+	        System.out.println("I can fly."); 
 	    }
-	
-	    public void withdraw(BigDecimal amount) {
-	    	withdrawableAccount.withdraw(amount);
-	    }
-	}   
-Exécutant maintenant notre classe main avec l'ajout de notre nouvelle classe *WithdrawableAccount*:   
-
-	public class IspMain {
-	
-		public static void main(String[] args) {
-			WithdrawableAccount myFixedTermDepositAccount = new WithdrawableAccount();
-			myFixedTermDepositAccount.deposit(new BigDecimal(1000.00));
-	
-			BankingAppWithdrawalService withdrawalService = new BankingAppWithdrawalService(myFixedTermDepositAccount);
-			withdrawalService.withdraw(new BigDecimal(100.00));
-	
-		}
 	}
-tout est **ok**.     
+	public class Pigeon extends FlyingBird { 
+	    @Override
+	    void display() {
+	        System.out.println("I'm a Pigeon.");
+	    } 
+	}
+	public class Penguin extends Bird { 
+	    @Override 
+	    void display() {
+	        System.out.println("I'm a Penguin.");
+	    }
+	}
+De cette façon on les oiseaux et les oiseaux qui peuvent voler et on a résolu le problème, tout est **ok**.     
 ### Les avantages du principe de substitution de Liskov (LSP):  
 * Réutilisabilité du code
 * Maintenance simplifiée
