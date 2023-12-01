@@ -183,7 +183,7 @@ Du point de vue du compilateur, il est acceptable d'utiliser l'instance de Pengu
 La violation de LSP aura un impact significatif sur la compréhension de votre code car elle utilise un mauvais concept d'héritage.  
 
 ### Comment on peut résoudre ce Problème:  
-la première façon qui est considérée comme une mauvaise pratique est la suivante, on ajoutre ce code dans la classe Bird pour vérifier si le oiseau est un Penguin ou non:   
+• la première façon qui est considérée comme une mauvaise pratique est la suivante, on ajoutre ce code dans la classe Bird pour vérifier si le oiseau est un Penguin ou non:   
 
 	public static void letBirdsFly(List<Bird> birds) { 
 	    for(Bird bird: birds) { 
@@ -195,7 +195,7 @@ la première façon qui est considérée comme une mauvaise pratique est la suiv
 Cette solution est considérée comme une mauvaise pratique et viole le principe ouvert-fermé.  
 Le code va devenir un gâchis. Notez également que l'une des définitions du principe de substitution de Liskov, développée par **Robert C. Martin , est la suivante**: *Les fonctions qui utilisent des pointeurs ou des références à des classes de base doivent pouvoir utiliser des objets de classes dérivées sans le savoir*.   
 
-Le deuxième façon est de suivre le principe consiste **à séparer la logique de vol** dans une autre classe.
+• Le deuxième façon est de suivre le principe consiste **à séparer la logique de vol** dans une autre classe.
 
 ![diagram](LSP-ok.png)
 
